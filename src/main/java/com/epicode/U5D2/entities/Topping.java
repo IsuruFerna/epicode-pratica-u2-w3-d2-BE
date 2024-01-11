@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Topping extends Item {
 
+//	@Column(unique = true)
 	private String name;
 
 	@ManyToMany(mappedBy = "toppingList")

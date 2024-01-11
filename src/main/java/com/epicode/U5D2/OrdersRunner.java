@@ -1,6 +1,8 @@
 package com.epicode.U5D2;
 
+import com.epicode.U5D2.dao.DrinkService;
 import com.epicode.U5D2.dao.PizzaService;
+import com.epicode.U5D2.dao.ToppingService;
 import com.epicode.U5D2.entities.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -13,15 +15,35 @@ import org.springframework.stereotype.Component;
 public class OrdersRunner implements CommandLineRunner {
 	@Autowired
 	PizzaService pizzaService;
+
+	@Autowired
+	DrinkService drinkService;
+
+	@Autowired
+	ToppingService toppingService;
+
 	@Override
 	public void run(String... args) throws Exception {
 
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U5D2Application.class);
 
 
-		pizzaService.save(ctx.getBean("pizza_margherita", Pizza.class));
-//		pizzaService.save(ctx.getBean("hawaiian_pizza", Pizza.class));
+//		pizzaService.save(ctx.getBean("pizza_margherita", Pizza.class));
+		pizzaService.save(ctx.getBean("hawaiian_pizza", Pizza.class));
 		pizzaService.save(ctx.getBean("salami_pizza_xl", Pizza.class));
+
+//		drinkService.save(ctx.getBean("lemonade", Drink.class));
+//		drinkService.save(ctx.getBean("water", Drink.class));
+//		drinkService.save(ctx.getBean("wine", Drink.class));
+
+//		toppingService.save(ctx.getBean("toppings_tomato", Topping.class));
+//		toppingService.save(ctx.getBean("toppings_cheese", Topping.class));
+//		toppingService.save(ctx.getBean("toppings_ham", Topping.class));
+//		toppingService.save(ctx.getBean("toppings_pineapple", Topping.class));
+//		toppingService.save(ctx.getBean("toppings_salami", Topping.class));
+
+
+
 
 
 //		try {

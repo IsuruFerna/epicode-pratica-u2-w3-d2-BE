@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @NoArgsConstructor
 public class Drink extends Item {
+//	@Column(unique = true)
 	private String name;
 
 	@ManyToOne

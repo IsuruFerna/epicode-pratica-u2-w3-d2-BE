@@ -11,7 +11,7 @@ import java.util.List;
 @Getter
 @NoArgsConstructor
 public class Pizza extends Item {
-
+//	@Column(unique = true)
 	private String name;
 
 	@ManyToMany(cascade = CascadeType.ALL)
