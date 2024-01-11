@@ -18,8 +18,12 @@ public class OrdersRunner implements CommandLineRunner {
 
 		AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(U5D2Application.class);
 
+
 		pizzaService.save(ctx.getBean("pizza_margherita", Pizza.class));
-//		System.out.println(ctx.getBean("pizza_margherita", Pizza.class));
+//		pizzaService.save(ctx.getBean("hawaiian_pizza", Pizza.class));
+		pizzaService.save(ctx.getBean("salami_pizza_xl", Pizza.class));
+
+
 //		try {
 //			Menu m = (Menu) ctx.getBean("menu");
 //			m.printMenu();
@@ -41,9 +45,10 @@ public class OrdersRunner implements CommandLineRunner {
 //			System.out.println("CONTO TAVOLO 1");
 //			System.out.println(o1.getTotal());
 
+//		pizzaService.save(ctx.getBean("pizza_margherita", Pizza.class));
+//		pizzaService.save(ctx.getBean("hawaiian_pizza", Pizza.class));
+//		pizzaService.save(ctx.getBean("salami_pizza_xl", Pizza.class));
 
-//
-//
 //		} catch (Exception ex) {
 //			System.err.println(ex.getMessage());
 //		} finally {

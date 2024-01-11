@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 
 @Entity
-@DiscriminatorValue("pizza")
+//@DiscriminatorValue("pizza")
 @Getter
 @NoArgsConstructor
 public class Pizza extends Item {

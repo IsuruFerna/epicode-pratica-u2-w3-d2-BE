@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.stereotype.Component;
 
 @Entity
-@DiscriminatorValue("drink")
+//@DiscriminatorValue("drink")
 @Getter
 @Setter
 @NoArgsConstructor
