@@ -24,7 +24,8 @@ public class UserServices {
 
     public User save(NewUserDTO body) {
         userDAO.findByEmail(body.email()).ifPresent(user -> {
-            throw new RuntimeException()
+//            throw new RuntimeException()
         });
+            return new User();
     }
 }
