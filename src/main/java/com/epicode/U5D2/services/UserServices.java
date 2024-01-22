@@ -1,6 +1,8 @@
 package com.epicode.U5D2.services;
 
 import com.epicode.U5D2.entities.User;
+import com.epicode.U5D2.exceptions.BadRequestException;
+import com.epicode.U5D2.exceptions.NotFoundException;
 import com.epicode.U5D2.payload.users.NewUserDTO;
 import com.epicode.U5D2.repositories.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UserServices {
@@ -24,8 +28,26 @@ public class UserServices {
 
     public User save(NewUserDTO body) {
         userDAO.findByEmail(body.email()).ifPresent(user -> {
-//            throw new RuntimeException()
+            throw new BadRequestException("Email " + user.getEmail() + " is already used");
         });
-            return new User();
+        User newUser = new User();
+        newUser.setEmail(body.email());
+        newUser.setName(body.name());
+        newUser.setSurname(body.surname());
+        newUser.setPassword(body.password());
+        return userDAO.save(newUser);
+    }
+
+    public User findById(UUID id) {
+        return userDAO.findById(id).orElseThrow(() -> new NotFoundException(id));
+    }
+
+    public void findByIdAndDelete(UUID id) {
+        User found = this.findById(id);
+        userDAO.delete(found);
+    }
+
+    public User findByEmail(String email) throws NotFoundException {
+        return userDAO.findByEmail(email).orElseThrow(() -> new NotFoundException("User with email " + email + " not found!"));
     }
 }
