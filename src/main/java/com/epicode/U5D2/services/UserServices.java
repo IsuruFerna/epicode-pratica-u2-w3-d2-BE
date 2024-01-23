@@ -6,11 +6,13 @@ import com.epicode.U5D2.exceptions.BadRequestException;
 import com.epicode.U5D2.exceptions.NotFoundException;
 import com.epicode.U5D2.payload.users.NewUserDTO;
 import com.epicode.U5D2.repositories.UserDAO;
+import com.epicode.U5D2.security.JWTTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;
@@ -27,18 +29,7 @@ public class UserServices {
         return userDAO.findAll(pageable);
     }
 
-    public User save(NewUserDTO body) {
-        userDAO.findByEmail(body.email()).ifPresent(user -> {
-            throw new BadRequestException("Email " + user.getEmail() + " is already used");
-        });
-        User newUser = new User();
-        newUser.setEmail(body.email());
-        newUser.setName(body.name());
-        newUser.setSurname(body.surname());
-        newUser.setPassword(body.password());
-        newUser.setRole(Role.USER);
-        return userDAO.save(newUser);
-    }
+
 
     public User findById(UUID id) {
         return userDAO.findById(id).orElseThrow(() -> new NotFoundException(id));

@@ -9,12 +9,10 @@ import com.epicode.U5D2.payload.users.UserLoginResponseDTO;
 import com.epicode.U5D2.services.AuthService;
 import com.epicode.U5D2.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
@@ -32,13 +30,14 @@ public class AuthController {
     }
 
     @PostMapping("/register")
+    @ResponseStatus(HttpStatus.CREATED)
     public NewUserResponseDTO createUser(@RequestBody @Validated NewUserDTO newUserPayload, BindingResult validation) {
         System.out.println(validation);
         if(validation.hasErrors()) {
             System.out.println(validation.getAllErrors());
             throw new BadRequestException("There are errors in payload!");
         } else  {
-            User newUser = userServices.save(newUserPayload);
+            User newUser = authService.save(newUserPayload);
 
             return new NewUserResponseDTO(newUser.getId());
         }
