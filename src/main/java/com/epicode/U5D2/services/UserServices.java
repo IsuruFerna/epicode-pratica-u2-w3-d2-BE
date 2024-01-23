@@ -1,5 +1,6 @@
 package com.epicode.U5D2.services;
 
+import com.epicode.U5D2.entities.Role;
 import com.epicode.U5D2.entities.User;
 import com.epicode.U5D2.exceptions.BadRequestException;
 import com.epicode.U5D2.exceptions.NotFoundException;
@@ -35,6 +36,7 @@ public class UserServices {
         newUser.setName(body.name());
         newUser.setSurname(body.surname());
         newUser.setPassword(body.password());
+        newUser.setRole(Role.USER);
         return userDAO.save(newUser);
     }
 
@@ -45,6 +47,16 @@ public class UserServices {
     public void findByIdAndDelete(UUID id) {
         User found = this.findById(id);
         userDAO.delete(found);
+    }
+
+    public User findByIdAndUpdate(UUID id, User body) {
+        User found = this.findById(id);
+        found.setPassword(body.getPassword());
+        found.setRole(body.getRole());
+        found.setEmail(body.getEmail());
+        found.setName(body.getName());
+        found.setSurname(body.getSurname());
+        return userDAO.save(found);
     }
 
     public User findByEmail(String email) throws NotFoundException {
